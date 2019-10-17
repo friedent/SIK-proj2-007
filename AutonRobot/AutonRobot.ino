@@ -116,8 +116,7 @@ void turnRight(int motorSpeed){
 }
 
 void halt(){
-  spinMotor(0, 0);
-  spinMotor(0, 1);
+  forward(0);
 }
 
 void pirouetteTurn(int motorSpeed){
@@ -126,6 +125,11 @@ void pirouetteTurn(int motorSpeed){
 }
 
 void reverse(int motorSpeed){
-  spinMotor(-1*motorSpeed, 0);
-  spinMotor(-1*motorSpeed, 1);
+  forward(-1*motorSpeed);
+}
+
+void turn90Left(int motorSpeed){
+  turnLeft(motorSpeed);
+  delay(1000/motorSpeed);
+  halt();
 }
