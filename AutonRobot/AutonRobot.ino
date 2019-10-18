@@ -34,7 +34,7 @@ void loop() {
     if(distance>TOOFAR){
       forward(100);
     }else if(distance<=TOOFAR){
-      turnLeft(100);
+      turn90Left(100);
     }
   }else{
     halt();
