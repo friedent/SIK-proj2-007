@@ -12,7 +12,7 @@ const int ECHO = 3;
 const int SWITCHPIN = 7;
 
 //Distance sensor
-const int TOOFAR = 20;
+const int TOOFAR = 2;
 
 void setup() {
   Serial.begin(9600);
@@ -34,6 +34,10 @@ void loop() {
     if(distance>TOOFAR){
       forward(100);
     }else if(distance<=TOOFAR){
+      reverse(100);
+      delay(500);
+      halt();
+      delay(100);
       turn90Left(100);
     }
   }else{
@@ -130,6 +134,6 @@ void reverse(int motorSpeed){
 
 void turn90Left(int motorSpeed){
   turnLeft(motorSpeed);
-  delay(1000/motorSpeed);
+  delay(66666/motorSpeed);
   halt();
 }
