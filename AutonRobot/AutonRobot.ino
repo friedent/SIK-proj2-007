@@ -11,6 +11,7 @@ const int BIN1 = 8;
 const int TRIG = 2;
 const int ECHO = 3;
 const int SWITCHPIN = 7;
+const int LEFTSWITCH = 6;
 
 //Distance sensor
 const int TOOFAR = 2;
@@ -18,6 +19,7 @@ const int TOOFAR = 2;
 void setup() {
   Serial.begin(9600);
   pinMode(SWITCHPIN, INPUT_PULLUP);
+  pinMode(LEFTSWITCH, INPUT_PULLUP);
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
   pinMode(AIN1, OUTPUT);
@@ -39,7 +41,12 @@ void loop() {
       delay(500);
       halt();
       delay(100);
-      turn90Left(100);
+      if(digitalRead(LEFTSWITCH)==HIGH){
+        turn90Right(100);
+      }else{
+        turn90Left(100);
+      }
+      
     }
   }else{
     halt();
@@ -117,8 +124,8 @@ void turnLeft(int motorSpeed){
 }
 
 void turnRight(int motorSpeed){
-  spinMotor(motorSpeed, 1);
-  spinMotor(0, 0);
+  spinMotor(motorSpeed, 0);
+  spinMotor(0, 1);
 }
 
 void halt(){
@@ -136,6 +143,12 @@ void reverse(int motorSpeed){
 
 void turn90Left(int motorSpeed){
   turnLeft(motorSpeed);
+  delay(70000/motorSpeed);
+  halt();
+}
+
+void turn90Right(int motorSpeed){
+  turnRight(motorSpeed);
   delay(70000/motorSpeed);
   halt();
 }
