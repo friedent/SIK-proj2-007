@@ -34,7 +34,6 @@ void loop() {
     float distance = getDistance();
     if(distance>TOOFAR){
       forward(100);
-      Serial.println(distance);
     }else if(distance<=TOOFAR){
       reverse(100);
       delay(500);
@@ -113,8 +112,8 @@ void forward(int motorSpeed){
 }
 
 void turnLeft(int motorSpeed){
-  spinMotor(motorSpeed, 0);
-  spinMotor(0, 1);
+  spinMotor(motorSpeed/1.03, 1);
+  spinMotor(0, 0);
 }
 
 void turnRight(int motorSpeed){
@@ -137,6 +136,6 @@ void reverse(int motorSpeed){
 
 void turn90Left(int motorSpeed){
   turnLeft(motorSpeed);
-  delay(80000/motorSpeed);
+  delay(70000/motorSpeed);
   halt();
 }
