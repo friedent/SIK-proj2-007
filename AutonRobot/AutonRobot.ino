@@ -34,6 +34,7 @@ void loop() {
     float distance = getDistance();
     if(distance>TOOFAR){
       forward(100);
+      Serial.println(distance);
     }else if(distance<=TOOFAR){
       reverse(100);
       delay(500);
@@ -86,6 +87,7 @@ void spinMotor(int motorSpeed, int motor){ //0 for motor A, 1 for motor B
       }
       analogWrite(PWMA, abs(motorSpeed));                 //now that the motor direction is set, drive it at the entered speed
   }else {
+      motorSpeed = motorSpeed * 1.03;
       if (motorSpeed > 0)                                 //if the motor should drive forward (positive speed)
       {
         digitalWrite(BIN1, HIGH);                         //set pin 1 to high
@@ -135,6 +137,6 @@ void reverse(int motorSpeed){
 
 void turn90Left(int motorSpeed){
   turnLeft(motorSpeed);
-  delay(66666/motorSpeed);
+  delay(80000/motorSpeed);
   halt();
 }
