@@ -48,7 +48,7 @@ void play(String note, float beats) {
   int index = 0;
   int beatlength = 450;
   if("0".equals(note)){
-    noTone(SPEAKER, beats*beatlength);
+    noTone(SPEAKER);
   }else{
     for(int i = 0; i < numNotes; i++){
       if(Notes[i]==note){
