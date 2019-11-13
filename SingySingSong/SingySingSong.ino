@@ -46,14 +46,18 @@ void loop() {
 void play(String note, float beats) {
   int numNotes = 36;
   int index = 0;
-  int beatlength = 500;
-  for(int i = 0; i < numNotes; i++){
-    if(Notes[i]==note){
-      index = i;
+  int beatlength = 450;
+  if("0".equals(note)){
+    noTone(SPEAKER, beats*beatlength);
+  }else{
+    for(int i = 0; i < numNotes; i++){
+      if(Notes[i]==note){
+        index = i;
+      }
     }
+    //Serial.println(note + "+" + "+" + Frequencies[index] + beats);
+    tone(SPEAKER, Frequencies[index], beats * beatlength);
   }
-  //Serial.println(note + "+" + "+" + Frequencies[index] + beats);
-  tone(SPEAKER, Frequencies[index], beats * beatlength);
   delay(beats * beatlength);
   delay(50);
 }
