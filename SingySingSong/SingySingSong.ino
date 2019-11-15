@@ -18,9 +18,9 @@ void setup() {
   }
   Serial.println("here");
   
-  myFile = SD.open("JB.txt");
+  myFile = SD.open("JB2.txt");
   if (myFile) {
-    Serial.println("JB.txt:");
+    Serial.println("JB2.txt:");
 
     // read from the file until there's nothing else in it:
     while (myFile.available()) {
@@ -33,7 +33,7 @@ void setup() {
     myFile.close();
   } else {
     // if the file didn't open, print an error:
-    Serial.println("error opening JB.txt");
+    Serial.println("error opening JB2.txt");
   }
   pinMode(SPEAKER, OUTPUT);
 }
