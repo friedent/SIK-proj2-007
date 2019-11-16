@@ -7,17 +7,17 @@
 const int AIN1 = 13;
 const int AIN2 = 12;
 const int PWMA = 11;
-const int PWMB = 4;
-const int BIN2 = 10;
+const int PWMB = 5;
+const int BIN2 = 6;
 const int BIN1 = 8;
 const int SWITCHPIN = 7;
-const int LEFTSWITCH = 6;
+//const int LEFTSWITCH = 6;
 const int SERVO = 9;
 const int ECHO = 3;
 const int TRIG = 2;
 
 //Distance sensor
-const int TOOFAR = 2;
+const int TOOFAR = 10;
 const int TOOFARSIDE = 6;
 
 Servo myServo;
@@ -25,7 +25,7 @@ void setup() {
   Serial.begin(9600);
   //myServo.attach(4);
   pinMode(SWITCHPIN, INPUT_PULLUP);
-  pinMode(LEFTSWITCH, INPUT_PULLUP);
+  pinMode(A0, INPUT_PULLUP);
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
   pinMode(BIN1, OUTPUT);
@@ -39,13 +39,15 @@ void setup() {
 
 void loop() {
   if(digitalRead(SWITCHPIN)==LOW){
-    myServo.write(60);
+    myServo.write(45);
     delay(500);
     float distance = getDistance();
     if(distance <TOOFARSIDE){
       turnRight(100);
-      Serial.println("right");
-      delay(100);
+      String temp = "right: ";
+      temp = temp + distance;
+      Serial.println(temp);
+      delay(400);
       halt();
     }
     myServo.write(90);
@@ -53,29 +55,31 @@ void loop() {
     distance = getDistance();
     if(distance>TOOFAR){
       forward(100);
-      Serial.println("forward");
+      //Serial.println("forward");
     }else if(distance<=TOOFAR){
       reverse(100);
       delay(500);
       halt();
       delay(100);
-      if(digitalRead(LEFTSWITCH)==HIGH){
+      if(digitalRead(A0)==HIGH){
         turn90Right(100);
       }else{
         turn90Left(100);
       }
       
     }
-    myServo.write(120);
+    myServo.write(135);
     delay(500);
     distance = getDistance();
     if(distance <TOOFARSIDE){
       turnLeft(100);
-      Serial.println("left");
-      delay(100);
+      String temp = "left: ";
+      temp = temp + distance;
+      Serial.println(temp);
+      delay(400);
       halt();
     }
-    delay(500);
+    
   }else{
     halt();
   }
