@@ -12,7 +12,7 @@ const int SWITCHPIN = 7;
 const int SERVO = 9;
 const int ECHO = 3;
 const int TRIG = 2;
-const int SPEAKER = 10;
+const int SPEAKER = 7;
 //SIDESWITCH = A0
 
 //Distance sensor constants: define when to turn
@@ -47,7 +47,7 @@ void setup() {
   myFile = SD.open("JB3.txt"); //Read file
   
   //Define Pin Modes
-  pinMode(SWITCHPIN, INPUT_PULLUP);
+  pinMode(A1, INPUT_PULLUP);
   pinMode(A0, INPUT_PULLUP);
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
@@ -57,7 +57,7 @@ void setup() {
   pinMode(AIN1, OUTPUT);
   pinMode(AIN2, OUTPUT);
   pinMode(PWMA, OUTPUT);
-  pinMode(SPEAKER, OUTPUT);
+  pinMode(7, OUTPUT);
   myServo.attach(SERVO);
   myServo.write(90);
   
@@ -78,8 +78,9 @@ void loop() {
         float beats = line.substring(line.indexOf(' ') + 1).toFloat(); //String manipulation to find beats
         next = i + increment * beats;                           //Find next increment when it should play note
         delay(50);
-        play(note, beats);                                      //Play note
         chooseDanceMove(note, beats);                           //Choose Dance Move
+        play(note, beats);                                      //Play note
+        
       }else{
         //myFile.close();
       }
@@ -191,6 +192,7 @@ void chooseDanceMove(String note, float beats){
     maxNum = 5;                                           //Otherwise, don't
   }
   num = random(1, maxNum);                                //Find Random number
+  Serial.println(num);
   if(num == 1){
     forward(100);
   }else if(num == 2){
@@ -208,6 +210,7 @@ void chooseDanceMove(String note, float beats){
   }else{
     halt();
   }
+  
 }
 
 void forward(int motorSpeed){                             //Move forward at motorSpeed

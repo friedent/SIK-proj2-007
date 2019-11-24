@@ -1,4 +1,3 @@
-
 #include <Servo.h>
 
 //Pin Controls
@@ -24,7 +23,7 @@ Servo myServo;
 void setup() {
   Serial.begin(9600);
   //myServo.attach(4);
-  pinMode(SWITCHPIN, INPUT_PULLUP);
+  pinMode(A1, INPUT_PULLUP);
   pinMode(A0, INPUT_PULLUP);
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
@@ -38,41 +37,41 @@ void setup() {
 }
 
 void loop() {
-  if(digitalRead(SWITCHPIN)==LOW){
-    myServo.write(45);
+  if(digitalRead(A1)==LOW){
+    myServo.write(45);                      //Check Left Side
     delay(500);
     float distance = getDistance();
-    if(distance <TOOFARSIDE){
-      turnRight(100);
+    if(distance <TOOFARSIDE){               //If it is too close
+      turnRight(100);                       //Turn Right
       String temp = "right: ";
       temp = temp + distance;
       Serial.println(temp);
       delay(400);
       halt();
     }
-    myServo.write(90);
+    myServo.write(90);                      //Check Straight Ahead
     delay(500);
     distance = getDistance();
-    if(distance>TOOFAR){
+    if(distance>TOOFAR){                    //If it is far away, go forward
       forward(100);
       //Serial.println("forward");
-    }else if(distance<=TOOFAR){
-      reverse(100);
+    }else if(distance<=TOOFAR){             //If it is too close
+      reverse(100);                         //Reverse
       delay(500);
-      halt();
+      halt();                               //Stop
       delay(100);
       if(digitalRead(A0)==HIGH){
-        turn90Right(100);
+        turn90Right(100);                   //Turn Chosen Direction
       }else{
         turn90Left(100);
       }
       
     }
-    myServo.write(135);
+    myServo.write(135);                   //Check Right Side
     delay(500);
     distance = getDistance();
-    if(distance <TOOFARSIDE){
-      turnLeft(100);
+    if(distance <TOOFARSIDE){             //If it is too close
+      turnLeft(100);                      //Turn Left
       String temp = "left: ";
       temp = temp + distance;
       Serial.println(temp);
