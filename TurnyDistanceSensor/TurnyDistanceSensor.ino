@@ -38,44 +38,44 @@ void setup() {
 
 void loop() {
   if(digitalRead(A1)==LOW){
-    myServo.write(45);                      //Check Left Side
+    myServo.write(45);                      //Check Right Side
     delay(500);
     float distance = getDistance();
     if(distance <TOOFARSIDE){               //If it is too close
-      turnRight(100);                       //Turn Right
+      turnRight(-150);                      //Turn Left
       String temp = "right: ";
       temp = temp + distance;
       Serial.println(temp);
-      delay(400);
+      delay(800);
       halt();
     }
     myServo.write(90);                      //Check Straight Ahead
     delay(500);
     distance = getDistance();
     if(distance>TOOFAR){                    //If it is far away, go forward
-      forward(100);
+      forward(150);
       //Serial.println("forward");
     }else if(distance<=TOOFAR){             //If it is too close
-      reverse(100);                         //Reverse
+      reverse(150);                         //Reverse
       delay(500);
       halt();                               //Stop
       delay(100);
       if(digitalRead(A0)==HIGH){
-        turn90Right(100);                   //Turn Chosen Direction
+        turn90Right(150);                   //Turn Chosen Direction
       }else{
-        turn90Left(100);
+        turn90Left(150);
       }
       
     }
-    myServo.write(135);                   //Check Right Side
+    myServo.write(135);                   //Check Left Side
     delay(500);
     distance = getDistance();
     if(distance <TOOFARSIDE){             //If it is too close
-      turnLeft(100);                      //Turn Left
+      turnLeft(-150);                     //Turn Right
       String temp = "left: ";
       temp = temp + distance;
       Serial.println(temp);
-      delay(400);
+      delay(800);
       halt();
     }
     
@@ -174,12 +174,12 @@ void reverse(int motorSpeed){
 
 void turn90Left(int motorSpeed){
   turnLeft(motorSpeed);
-  delay(70000/motorSpeed);
+  delay(140000/motorSpeed);
   halt();
 }
 
 void turn90Right(int motorSpeed){
   turnRight(motorSpeed);
-  delay(70000/motorSpeed);
+  delay(140000/motorSpeed);
   halt();
 }
